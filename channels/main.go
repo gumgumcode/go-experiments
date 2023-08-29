@@ -11,5 +11,5 @@ func main() {
 	fmt.Println(inbox)
 }
 
-// $ go run channels-intro.go
+// $ go run main.go
 // hi from my goroutine!
