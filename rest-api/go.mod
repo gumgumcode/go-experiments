@@ -1,4 +1,4 @@
-module basic-blog
+module rest-api
 
 go 1.21.0
 
