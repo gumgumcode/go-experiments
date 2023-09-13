@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-	// Initialize the keyboard input
 	err := keyboard.Open()
 	if err != nil {
 		panic(err)
@@ -23,7 +22,6 @@ func main() {
 			panic(err)
 		}
 
-		// Check for arrow key presses
 		if key == keyboard.KeyArrowUp {
 			fmt.Println("Up Arrow Key Pressed")
 		} else if key == keyboard.KeyArrowDown {
@@ -33,7 +31,6 @@ func main() {
 		} else if key == keyboard.KeyArrowRight {
 			fmt.Println("Right Arrow Key Pressed")
 		} else if key == keyboard.KeyEsc || char == 'q' {
-			// Exit the program if 'q' or Esc key is pressed
 			fmt.Println("Exiting...")
 			os.Exit(0)
 		}
