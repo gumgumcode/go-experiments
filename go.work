@@ -1,8 +1,9 @@
-go 1.22
+go 1.21.0
 
 use (
 	./markdown
 	./rest-api
 	./rpc
+	./snake-game/arrow-keys
 	./sql
 )
