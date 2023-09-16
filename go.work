@@ -1,10 +1,12 @@
 go 1.21.0
 
 use (
+	./chat-simulation
 	./markdown
 	./rest-api
 	./rpc
 	./snake-game/arrow-keys
+	./snake-game/canvas
 	./snake-game/no-enter
 	./sql
 )
