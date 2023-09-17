@@ -1,20 +1,52 @@
 package main
 
-import "sync"
-
-type Message struct {
-	User    string
-	Content string
-}
+import (
+	"fmt"
+	"sync"
+	"time"
+)
 
 func main() {
-	sendCh := make(chan Message)
-	receiveCh := make(chan Message)
+	// Create a buffered channel for communication between users
+	messageChannel := make(chan string, 10) // Buffered with a capacity of 10
 
-	var wg = sync.WaitGroup
+	// Use a WaitGroup to wait for both users to finish
+	var wg sync.WaitGroup
+	wg.Add(2)
 
-	go chatRoom(sendCh, receiveCh)
+	// User 1
+	go func() {
+		defer wg.Done()
+		for i := 1; i <= 5; i++ {
+			message := fmt.Sprintf("User 1: Message %d", i)
+			messageChannel <- message
+			time.Sleep(time.Millisecond * 100) // Simulate a delay
+		}
+	}()
 
-	users := []string{"user1", "user2", "user3"}
+	// User 2
+	go func() {
+		defer wg.Done()
+		for i := 1; i <= 5; i++ {
+			message := fmt.Sprintf("User 2: Message %d", i)
+			messageChannel <- message
+			time.Sleep(time.Millisecond * 200) // Simulate a delay
+		}
+	}()
 
+	// Use a goroutine to receive and display messages
+	go func() {
+		for message := range messageChannel {
+			fmt.Println(message)
+		}
+	}()
+
+	// Wait for both users to finish
+	wg.Wait()
+
+	// Close the message channel when done
+	close(messageChannel)
+
+	// Wait for the display goroutine to finish
+	time.Sleep(time.Second * 2) // Give it some time to process remaining messages
 }
