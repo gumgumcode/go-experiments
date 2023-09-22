@@ -47,7 +47,7 @@ func main() {
 		fmt.Scanln(&guess)
 
 		// Validate the guess (ensure it's a single letter)
-		if len(guess) != 1 || !isLetter(guess) {
+		if !isLetter(guess) {
 			fmt.Println("Invalid input. Please enter a single letter.")
 			continue
 		}
@@ -56,8 +56,10 @@ func main() {
 		if strings.Contains(chosenWord, guess) {
 			// Update the guessedLetters slice with the correct guess
 			guessedLetters = append(guessedLetters, guess)
+
 			// Check if the player has won
-			if strings.EqualFold(chosenWord, displayWord(chosenWord, guessedLetters)) {
+			if strings.EqualFold(chosenWord, strings.ReplaceAll(displayWord(chosenWord, guessedLetters), " ", "")) {
+				fmt.Println("\nWord:", displayWord(chosenWord, guessedLetters))
 				fmt.Println("Congratulations! You've won. The word was:", chosenWord)
 				break
 			}
